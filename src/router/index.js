@@ -1,5 +1,9 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import TagsListView from "../views/TagsListView.vue";
+import TagsCreateView from "../views/TagsCreateView.vue";
+import TagsDetailView from "../views/TagsDetailView.vue";
+import TagsUpdateView from "../views/TagsUpdateView.vue";
 
 const routes = [
   {
@@ -15,6 +19,26 @@ const routes = [
     // which is lazy-loaded when the route is visited.
     component: () =>
       import(/* webpackChunkName: "about" */ "../views/AboutView.vue"),
+  },
+  {
+    path: "/tags",
+    name: "Tags",
+    component: TagsListView
+  },
+  {
+    path: "/tags/create",
+    name: "TagsCreate",
+    component: TagsCreateView
+  },
+  {
+    path: "/tags/:id",
+    name: "TagsDetail",
+    component: TagsDetailView
+  },
+  {
+    path: "/tags/:id/edit",
+    name: "TagsUpdate",
+    component: TagsUpdateView
   },
 ];
 

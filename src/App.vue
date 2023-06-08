@@ -1,9 +1,12 @@
 <template>
-  <nav>
-    <router-link to="/">Home</router-link> |
-    <router-link to="/about">About</router-link>
-  </nav>
-  <router-view />
+  <div class="container-xl d-flex flex-column gap-5">
+    <nav>
+      <router-link to="/">Home</router-link> |
+      <router-link to="/about">About</router-link>
+      <router-link to="/tags">Tags</router-link>
+    </nav>
+    <router-view />
+  </div>
 </template>
 
 <style lang="scss">

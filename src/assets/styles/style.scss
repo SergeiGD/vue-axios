@@ -1,0 +1,27 @@
+// functions
+@import "~bootstrap/scss/functions";
+
+// vars override
+@import "vendors/bootstrap_vars";
+
+// vars default
+@import "~bootstrap/scss/variables";
+@import "~bootstrap/scss/variables-dark";
+
+// maps extend
+@import "~bootstrap/scss/maps";
+
+// maps override
+@import "vendors/bootstrap_maps";
+
+// utilities
+@import "~bootstrap/scss/utilities";
+
+// extend utilities
+@import "vendors/bootstrap_utilities";
+
+// custom classes
+@import "vendors/bootstrap_classes";
+
+// remaining bootstrap
+@import "~bootstrap/scss/bootstrap";
