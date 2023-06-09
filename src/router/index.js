@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import NotFoundView from "../views/NotFoundView.vue";
 import TagsListView from "../views/TagsListView.vue";
 import TagsCreateView from "../views/TagsCreateView.vue";
 import TagsDetailView from "../views/TagsDetailView.vue";
@@ -39,6 +40,11 @@ const routes = [
     path: "/tags/:id/edit",
     name: "TagsUpdate",
     component: TagsUpdateView
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound",
+    component: NotFoundView
   },
 ];
 

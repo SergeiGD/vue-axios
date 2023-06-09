@@ -31,3 +31,9 @@ nav {
   }
 }
 </style>
+
+<script>
+  export default {
+    
+  }
+</script>

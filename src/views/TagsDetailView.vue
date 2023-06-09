@@ -1,4 +1,5 @@
 <template>
+  <NotFound v-if="notFound"></NotFound>
   <div class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative" v-if="tag">
 
     <i class="fa-regular fa-square-minus text-danger card_icon card_icon__delete" data-bs-toggle="modal" data-bs-target="#delete_modal"></i>
@@ -28,20 +29,26 @@
 <script>
 import axios from "axios";
 import DeletePopup from '@/components/DeletePopup.vue'
+import NotFound from '@/components/NotFound.vue'
 
 export default {
   components: {
-    DeletePopup
+    DeletePopup,
+    NotFound
   },
   data() {
     return {
       tag: null,
+      notFound: false
     };
   },
   mounted() {
     axios
       .get(`http://192.168.1.57:8000/tags/${this.$route.params.id}`)
-      .then((response) => (this.tag=response.data));
+      .then((response) => (this.tag=response.data))
+      .catch((error) =>{
+        if (error.response.status === 404) this.notFound = true;
+      });
   },
   methods: {
     deleteTag() {

@@ -1,4 +1,5 @@
 <template>
+  <NotFound v-if="notFound"></NotFound>
   <p v-if="errors" class="text-white  text-start p-2 h-100 bg-danger rounded-2">{{ errors }}</p>
   <form class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative" @submit.prevent="updateTag">
     <TagsInputs :tag="tag" :redirectTo="redirectToTagsDetail"/>
@@ -8,15 +9,18 @@
 <script>
 import axios from "axios";
 import TagsInputs from '@/components/TagsInputs.vue'
+import NotFound from '@/components/NotFound.vue'
 
 export default({
   components: {
-    TagsInputs
+    TagsInputs,
+    NotFound
   },
   data() {
     return {
       errors: null,
-      tag: null
+      tag: null,
+      notFound: false
     }
   },
   methods: {
@@ -27,7 +31,7 @@ export default({
         })
         .catch((error) =>{
           console.log(error)
-          this.errors = (error.response.data.detail[0].msg !== 'undefined') ? error.response.data.detail[0].msg : error.response.data.detail;
+          this.errors = (error.response.data.detail[0].msg !== undefined) ? error.response.data.detail[0].msg : error.response.data.detail;
         });
     },
     redirectToTagsDetail() {
@@ -37,7 +41,10 @@ export default({
   mounted() {
       axios
         .get(`http://192.168.1.57:8000/tags/${this.$route.params.id}`)
-        .then((response) => (this.tag=response.data));
+        .then((response) => (this.tag=response.data))
+        .catch((error) =>{
+          if (error.response.status === 404) this.notFound = true;
+        });
     },
 })
 </script>

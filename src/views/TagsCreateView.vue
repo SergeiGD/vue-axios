@@ -1,5 +1,5 @@
 <template>
-  <p  v-if="errors" class="text-white  text-start p-2 h-100 bg-danger rounded-2">{{ errors }}</p>
+  <p v-if="errors" class="text-white  text-start p-2 h-100 bg-danger rounded-2">{{ errors }}</p>
   <form class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative" @submit.prevent="createTag">
     <TagsInputs :tag="tag" :redirectTo="redirectToTags"/>
   </form>
