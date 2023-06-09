@@ -25,9 +25,9 @@ export default({
   },
   methods: {
     updateTag() {
-      axios.put(`http://192.168.1.57:8000/tags/${this.$route.params.id}`, this.tag)
+      axios.put(`tags/${this.$route.params.id}`, this.tag)
         .then(() => {
-          this.redirectToTagsDetail()
+          this.redirectToTagsDetail();
         })
         .catch((error) =>{
           console.log(error)
@@ -40,7 +40,7 @@ export default({
   },
   mounted() {
       axios
-        .get(`http://192.168.1.57:8000/tags/${this.$route.params.id}`)
+        .get(`tags/${this.$route.params.id}`)
         .then((response) => (this.tag=response.data))
         .catch((error) =>{
           if (error.response.status === 404) this.notFound = true;

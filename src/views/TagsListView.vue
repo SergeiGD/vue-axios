@@ -27,7 +27,7 @@ export default {
   },
   mounted() {
     axios
-      .get("http://192.168.1.57:8000/tags/")
+      .get("tags/")
       .then((response) => (this.tags = response));
   },
 };

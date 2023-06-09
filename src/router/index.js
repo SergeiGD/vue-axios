@@ -1,10 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { storeToRefs } from "pinia";
+import { useUserStore } from '@/stores/user'
 import HomeView from "../views/HomeView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import TagsListView from "../views/TagsListView.vue";
 import TagsCreateView from "../views/TagsCreateView.vue";
 import TagsDetailView from "../views/TagsDetailView.vue";
 import TagsUpdateView from "../views/TagsUpdateView.vue";
+import LoginView from "../views/LoginView.vue";
 
 const routes = [
   {
@@ -27,6 +30,7 @@ const routes = [
     component: TagsListView
   },
   {
+    meta: { requiresAuth: true },
     path: "/tags/create",
     name: "TagsCreate",
     component: TagsCreateView
@@ -37,9 +41,15 @@ const routes = [
     component: TagsDetailView
   },
   {
+    meta: { requiresAuth: true },
     path: "/tags/:id/edit",
     name: "TagsUpdate",
     component: TagsUpdateView
+  },
+  {
+    path: "/login",
+    name: "Login",
+    component: LoginView
   },
   {
     path: "/:pathMatch(.*)*",
@@ -51,6 +61,20 @@ const routes = [
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
   routes,
+});
+
+router.beforeEach((to, _, next) => {
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    const store = useUserStore()
+    const isAuthenticated = storeToRefs(store);
+    if (isAuthenticated) {
+      next();
+      return;
+    }
+    next('/login');
+  } else {
+    next();
+  }
 });
 
 export default router;

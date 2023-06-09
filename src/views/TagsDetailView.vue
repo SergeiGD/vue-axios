@@ -44,7 +44,7 @@ export default {
   },
   mounted() {
     axios
-      .get(`http://192.168.1.57:8000/tags/${this.$route.params.id}`)
+      .get(`tags/${this.$route.params.id}`)
       .then((response) => (this.tag=response.data))
       .catch((error) =>{
         if (error.response.status === 404) this.notFound = true;
@@ -52,7 +52,7 @@ export default {
   },
   methods: {
     deleteTag() {
-      axios.delete(`http://192.168.1.57:8000/tags/${this.$route.params.id}`, this.tag)
+      axios.delete(`tags/${this.$route.params.id}`, this.tag)
         .then(() => {
           this.$router.push({path: '/tags'});
         })

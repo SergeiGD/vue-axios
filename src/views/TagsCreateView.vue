@@ -23,13 +23,13 @@ export default({
   },
   methods: {
     createTag() {
-      axios.post("http://192.168.1.57:8000/tags/", this.tag)
+      axios.post("tags/", this.tag)
         .then(() => {
           this.redirectToTags()
         })
         .catch((error) =>{
           console.log(error)
-          this.errors = (error.response.data.detail[0].msg === 'undefined') ? error.response.data.detail[0].msg : error.response.data.detail;
+          this.errors = (error.response.data.detail[0].msg !== undefined) ? error.response.data.detail[0].msg : error.response.data.detail;
         });
     },
     redirectToTags() {
