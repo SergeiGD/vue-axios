@@ -25,12 +25,19 @@ export const useUserStore = defineStore('user', {
         return (error.response.data.detail[0].msg !== undefined) ? error.response.data.detail[0].msg : error.response.data.detail;
       }
     },
+
+    logOut() {
+      this.user_id = null;
+      localStorage.removeItem("access_token");
+      localStorage.removeItem("refresh_token");
+    },
+
     tryUpdateUser(){
       // обновления user_id, если страница была перезагружена, но токен есть
       if (this.user_id === null && localStorage.getItem("access_token") !== null){
         this.user_id = jwt_decode(localStorage.getItem("access_token")).id;
       }
-    }
+    },
   },
   getters: {
     isAuthenticated: (state) => {
