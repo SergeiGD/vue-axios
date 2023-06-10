@@ -29,13 +29,13 @@ export default({
         .then(() => {
           this.redirectToTagsDetail();
         })
-        .catch((error) =>{
+        .catch((error) => {
           console.log(error)
           this.errors = (error.response.data.detail[0].msg !== undefined) ? error.response.data.detail[0].msg : error.response.data.detail;
         });
     },
     redirectToTagsDetail() {
-      this.$router.push({path: `/tags/${this.tag.id}`});
+      this.$router.push({name: "TagsDetail", params: {id: this.tag.id}});
     },
   },
   mounted() {

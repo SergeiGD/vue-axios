@@ -33,7 +33,7 @@ export default({
         });
     },
     redirectToTags() {
-      this.$router.push({path: '/tags'});
+      this.$router.push({name: 'Tags'});
     },
   }
 })

@@ -5,7 +5,7 @@
 
       <form @submit.prevent="login" class="w-100">
 
-        <p class="text-center fs-4 mb-0">Панель администирования</p>
+        <p class="text-center fs-4 mb-0">Авторизация</p>
 
         <hr class="mb-4 mt-0">
 
@@ -21,7 +21,7 @@
 
         <button type="submit" class="btn btn-primary btn-block mb-4 w-100">Войти</button>
 
-        <a href="#" class="text-center d-block">Забыли пароль?</a>
+        <RouterLink :to="{ name: 'RequestReset' }" class="text-center d-block">Забыли пароль?</RouterLink>
         
       </form>
 
@@ -49,17 +49,7 @@ export default({
   methods: {
     async login() {
       this.errors = await this.userStore.logIn(this.user);
-
-      // axios
-      //   .post("auth/login/", {
-      //     email: this.email,
-      //     password: this.password
-      //   })
-      //   .then((response) => (console.log(response)))
-      //   .catch((error) => {
-      //     console.log(error)
-      //     this.errors = (error.response.data.detail[0].msg === 'undefined') ? error.response.data.detail[0].msg : error.response.data.detail;
-      //   });
+      if (this.errors === null) this.$router.push({name: "Tags"});
     }
   }
 })

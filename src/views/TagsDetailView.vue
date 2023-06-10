@@ -3,7 +3,7 @@
   <div class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative" v-if="tag">
 
     <i class="fa-regular fa-square-minus text-danger card_icon card_icon__delete" data-bs-toggle="modal" data-bs-target="#delete_modal"></i>
-    <router-link :to="`/tags/${tag.id}/edit`" class="fa-regular fa-pen-to-square card_icon card_icon__edit"></router-link>
+    <router-link :to="{ name: 'TagsUpdate', params: {id: tag.id} }" class="fa-regular fa-pen-to-square card_icon card_icon__edit"></router-link>
 
     <div class="text-center">
       <span class="fw-bold fs-5">id: </span>
@@ -54,7 +54,7 @@ export default {
     deleteTag() {
       axios.delete(`tags/${this.$route.params.id}`, this.tag)
         .then(() => {
-          this.$router.push({path: '/tags'});
+          this.$router.push({name: 'Tags'});
         })
         .catch((error) =>{
           console.log(error)

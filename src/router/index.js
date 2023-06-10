@@ -8,6 +8,8 @@ import TagsCreateView from "../views/TagsCreateView.vue";
 import TagsDetailView from "../views/TagsDetailView.vue";
 import TagsUpdateView from "../views/TagsUpdateView.vue";
 import LoginView from "../views/LoginView.vue";
+import RequestResetView from "../views/RequestResetView.vue";
+import ConfirmResetView from "../views/ConfirmResetView.vue";
 
 const routes = [
   {
@@ -47,9 +49,19 @@ const routes = [
     component: TagsUpdateView
   },
   {
-    path: "/login",
+    path: "/auth/login",
     name: "Login",
     component: LoginView
+  },
+  {
+    path: "/auth/request_reset",
+    name: "RequestReset",
+    component: RequestResetView
+  },
+  {
+    path: "/auth/reset_password/:token",
+    name: "ResetPassword",
+    component: ConfirmResetView
   },
   {
     path: "/:pathMatch(.*)*",
@@ -63,15 +75,18 @@ const router = createRouter({
   routes,
 });
 
-router.beforeEach((to, _, next) => {
+router.beforeEach(async (to, _, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
+    // если для страницы требуется быть авторизированным
     const store = useUserStore()
-    const isAuthenticated = storeToRefs(store);
-    if (isAuthenticated) {
+    const userProps = storeToRefs(store);
+    if (userProps.isAuthenticated.value) {
+      // если авторизированы, то пропускам дальше
       next();
       return;
     }
-    next('/login');
+    // иначе отправляем на страницу авторизации
+    next({ name: "Login" });
   } else {
     next();
   }

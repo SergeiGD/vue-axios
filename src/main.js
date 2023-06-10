@@ -33,33 +33,35 @@ function updateToken(){
       localStorage.setItem("refresh_token", response.data.refresh_token);
       return Promise.resolve(response.data.access_token);
     })
-    .catch((error) => {
+    .catch(() => {
       // если ошибка, то отчищаем токены
       localStorage.setItem("access_token", null);
       localStorage.setItem("refresh_token", null);
       // кидаем на страницу авторизации 
-      router.push({path: "/login"})
-      return Promise.reject(error);
+      router.push({name: "Login"})
+      return Promise.reject();
     });
 
   } else{
       // если нету токена обновления, то кидаем на страницу авторизации
-      router.push({path: "/login"})
-      return Promise.reject(error);
+      router.push({name: "Login"})
+      return Promise.reject();
   }
 
 }
 
 // авто обновление jwt токенов
 axios.interceptors.response.use(null, (error) => {
-  // выполняем только когда код 401 и запрос не на эндпоинт обновления токенов (но тоже при ошибке возвращает 401 и будет бесконечная рекурсия)
-  if (error.response.status == 401 && error.config.url !== "auth/refresh_user_token/") {
+  // выполняем только когда код 401 и запрос не на эндпоинт обновления аутентификации
+  if (error.response.status == 401 && !(/^auth(\w*)/.test(error.config.url))) {
     // пытаемся обновить токены
     return updateToken().then((token) => {
       // при успехе переотпраялем запрос, который не удалось отправить из-за отсутсвия активного токена доступа
       error.config.headers['Authorization'] = `Bearer ${token}`;
       error.config.baseURL = undefined;
       return axios.request(error.config);
+    }).catch(() => {
+      return Promise.reject(error)
     });
   }
 
