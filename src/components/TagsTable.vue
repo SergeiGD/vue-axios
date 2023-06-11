@@ -9,10 +9,12 @@
       </thead>
       <tbody>
         <slot name="headButton"></slot>
-        <tr role="button" v-for="tag in tags.data" :key="tag.id">
+        <tr role="button" v-for="tag in tags" :key="tag.id">
           <th scope="row">{{ tag.id }}</th>
           <td class="text-nowrap">
-            <router-link :to="{ name: 'TagsDetail', params: {id: tag.id} }" class="link-hover d-block"
+            <router-link
+              :to="{ name: 'TagsDetail', params: { id: tag.id } }"
+              class="link-hover d-block"
               >{{ tag.name }}
             </router-link>
           </td>

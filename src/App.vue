@@ -1,24 +1,52 @@
 <template>
-  <div class="container-xl d-flex flex-column gap-5 ">
+  <div class="container-xl d-flex flex-column gap-5">
     <nav class="d-flex gap-3 justify-content-center p-3 fw-bold">
-      <router-link 
+      <router-link
         :to="{ name: 'Home' }"
-        :class="[this.$route.fullPath === '/' ? 'text-warning' : 'text-secondary']"
-      >Home</router-link>
+        :class="[
+          this.$route.fullPath === '/' ? 'text-warning' : 'text-secondary',
+        ]"
+        >Home</router-link
+      >
 
-      <router-link 
-        :to="{ name: 'Tags' }" 
-        :class="[/^\/tags(\w*)/.test(this.$route.fullPath) ? 'text-warning' : 'text-secondary']"
-      >Tags</router-link>
+      <router-link
+        :to="{ name: 'Categories' }"
+        :class="[
+          /^\/categories(\w*)/.test(this.$route.fullPath)
+            ? 'text-warning'
+            : 'text-secondary',
+        ]"
+        >Categories</router-link
+      >
 
-      <router-link 
-        v-if="!userStore.isAuthenticated" 
+      <router-link
+        :to="{ name: 'Tags' }"
+        :class="[
+          /^\/tags(\w*)/.test(this.$route.fullPath)
+            ? 'text-warning'
+            : 'text-secondary',
+        ]"
+        >Tags</router-link
+      >
+
+      <router-link
+        v-if="!userStore.isAuthenticated"
         :to="{ name: 'Login' }"
-        :class="[ /^\/auth(\w*)/.test(this.$route.fullPath) ? 'text-warning' : 'text-secondary']"
-      >Login</router-link>
+        :class="[
+          /^\/auth(\w*)/.test(this.$route.fullPath)
+            ? 'text-warning'
+            : 'text-secondary',
+        ]"
+        >Login</router-link
+      >
 
-      <a v-if="userStore.isAuthenticated" href="#" @click="logout">Logout</a>
-      
+      <a
+        v-if="userStore.isAuthenticated"
+        href="#"
+        @click="logout"
+        class="text-secondary"
+        >Logout</a
+      >
     </nav>
     <router-view />
   </div>
@@ -26,17 +54,17 @@
 
 <script>
 import { mapStores } from "pinia";
-import { useUserStore } from '@/stores/user'
+import { useUserStore } from "@/stores/user";
 
-export default({
+export default {
   computed: {
-    ...mapStores(useUserStore)
+    ...mapStores(useUserStore),
   },
   methods: {
     logout() {
       this.userStore.logOut();
-      this.$router.push({name: "Tags"});
-    }
-  }
-})
+      this.$router.push({ name: "Tags" });
+    },
+  },
+};
 </script>

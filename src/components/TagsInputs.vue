@@ -2,14 +2,14 @@
   <div class="row" v-if="tag">
     <div class="col-12">
       <div class="input-group">
-        <label for="create_name" class="input-group-text w-10r"
+        <label for="tag-name" class="input-group-text w-10r"
           >Наименование</label
         >
-        <input 
-          id="create_name" 
-          type="text" 
-          class="form-control" 
-          v-model="tag.name" 
+        <input
+          id="tag-name"
+          type="text"
+          class="form-control"
+          v-model="tag.name"
         />
       </div>
     </div>
@@ -19,7 +19,11 @@
         <button type="submit" class="btn btn-lg btn-c_yellow-700">
           Сохранить
         </button>
-        <button type="button" class="btn btn-lg btn-c_grey-100" @click="redirectTo">
+        <button
+          type="button"
+          class="btn btn-lg btn-c_grey-100"
+          @click="redirectTo"
+        >
           Отмена
         </button>
       </div>
@@ -28,7 +32,7 @@
 </template>
 
 <script>
-export default({
-  props: ['redirectTo', 'tag'],
-})
+export default {
+  props: ["redirectTo", "tag"],
+};
 </script>

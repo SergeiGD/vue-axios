@@ -5,7 +5,7 @@ import router from "./router";
 
 import "./assets/styles/style.scss";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
-import "./axiosSettings"
+import "./axiosSettings";
 
 const pinia = createPinia();
 const app = createApp(App);
