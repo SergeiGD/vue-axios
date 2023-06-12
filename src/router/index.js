@@ -17,6 +17,8 @@ import CategoriesListView from "../views/CategoriesListView.vue";
 import CategoriesCreateView from "../views/CategoriesCreateView.vue";
 import CategoriesDetailView from "../views/CategoriesDetailView.vue";
 import CategoriesUpdateView from "../views/CategoriesUpdateView.vue";
+import CategoriesTagsUpdateView from "../views/CategoriesTagsUpdateView.vue";
+import CategoriesTagsAddView from "../views/CategoriesTagsAddView.vue";
 
 const routes = [
   {
@@ -67,6 +69,18 @@ const routes = [
     path: "/categories/:id/edit",
     name: "CategoriesUpdate",
     component: CategoriesUpdateView,
+  },
+  {
+    meta: { requiresAuth: true },
+    path: "/categories/:id/tags",
+    name: "CategoriesTagsUpdate",
+    component: CategoriesTagsUpdateView,
+  },
+  {
+    meta: { requiresAuth: true },
+    path: "/categories/:id/tags/add",
+    name: "CategoriesTagsAdd",
+    component: CategoriesTagsAddView,
   },
   {
     path: "/auth/login",

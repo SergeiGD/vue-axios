@@ -42,8 +42,8 @@
               }}
             </tr>
           </td>
+          <slot name="actionButton"></slot>
         </tr>
-        <slot name="actionButton"></slot>
       </tbody>
     </table>
   </div>

@@ -7,6 +7,8 @@ import "./assets/styles/style.scss";
 import "../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js";
 import "./axiosSettings";
 
+// TODO: хлебные крошки
+
 const pinia = createPinia();
 const app = createApp(App);
 app.use(pinia);

@@ -18,8 +18,8 @@
               >{{ tag.name }}
             </router-link>
           </td>
+          <slot name="actionButton" :tag="tag"></slot>
         </tr>
-        <slot name="actionButton"></slot>
       </tbody>
     </table>
   </div>

@@ -112,6 +112,28 @@
     </div>
   </div>
 
+<div class="shadow p-3 rounded-2 d-flex flex-column gap-4 mt-5">
+
+  <div class="text-center">
+    <span class="fw-bold fs-5">Теги</span>
+  </div>
+
+  <TagsTable :tags="tags">
+    <template v-slot:headButton>
+      <tr>
+        <td class="p-0" colspan="3">
+          <router-link
+            :to="{ name: 'CategoriesTagsUpdate' }"
+            class="btn btn-c_grey-100 w-100 rounded-0 py-2 fw-bold"
+            >Изменить</router-link
+          >
+        </td>
+      </tr>
+    </template>
+  </TagsTable>
+
+</div>
+
   <DeletePopup :deleteItem="deleteCategory" />
   <ImagePopup :image_scr="main_photo_path" />
 </template>
@@ -121,12 +143,14 @@ import axios from "axios";
 import DeletePopup from "@/components/DeletePopup.vue";
 import NotFound from "@/components/NotFound.vue";
 import ImagePopup from "@/components/ImagePopup.vue";
+import TagsTable from "@/components/TagsTable.vue";
 
 export default {
   components: {
     DeletePopup,
     NotFound,
     ImagePopup,
+    TagsTable
   },
   data() {
     return {
@@ -134,9 +158,10 @@ export default {
       main_photo_path: null,
       notFound: false,
       errors: null,
+      tags: null
     };
   },
-  mounted() {
+  beforeMount() {
     axios
       .get(`categories/${this.$route.params.id}`)
       .then((response) => {
@@ -147,6 +172,12 @@ export default {
       })
       .catch((error) => {
         if (error.response.status === 404) this.notFound = true;
+      });
+
+    axios
+      .get(`categories/${this.$route.params.id}/tags`)
+      .then((response) => {
+        this.tags = response.data;
       });
   },
   methods: {
