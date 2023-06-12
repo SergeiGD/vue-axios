@@ -94,7 +94,7 @@
           >
           <div class="img_wrapper">
             <img
-              :src="main_photo_path"
+              :src="imagesURL + category.main_photo_path"
               alt="Главное фото"
               class="img-fluid w-100 img"
             />
@@ -102,7 +102,7 @@
               class="btn open_img btn-dark"
               type="button"
               data-bs-toggle="modal"
-              data-bs-target="#show_img_modal"
+              data-bs-target="#mainPhotoPopup"
             >
               <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
             </button>
@@ -134,8 +134,44 @@
 
 </div>
 
+<div class="shadow p-3 rounded-2 d-flex flex-column gap-4 mt-5">
+
+  <div class="text-center">
+    <span class="fw-bold fs-5">Доп. фотографии</span>
+  </div>
+
+  <div class="row">
+
+    <router-link :to="{ name: 'CategoriesPhotosUpdate' }" class="btn btn-c_grey-100 w-100 py-2 fw-bold mb-4 rounded">Изменить</router-link>
+
+    <div class="col-lg-4 col-sm-6 col-12 mb-4" v-for="photo in photos" :key="photo.id">
+      <div class="w-100">
+        <span class="input-group-text rounded-top rounded-0">Фото {{ photo.order }}:</span>
+        <div class="img_wrapper">
+
+            <img :src="imagesURL + photo.path" :alt="`Фото ${ photo.order }`" class="img-fluid w-100 img">
+
+            <button
+              class="btn open_img btn-dark"
+              type="button"
+              data-bs-toggle="modal"
+              :data-bs-target="`#additionalPhoto${photo.id}`"
+            >
+              <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
+            </button>
+
+            <ImagePopup :image_scr="imagesURL + photo.path" :imagePopupId="`additionalPhoto${photo.id}`"/>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
   <DeletePopup :deleteItem="deleteCategory" />
-  <ImagePopup :image_scr="main_photo_path" />
+  <ImagePopup :image_scr="imagesURL + category.main_photo_path" v-if="category" imagePopupId="mainPhotoPopup"/>
 </template>
 
 <script>
@@ -158,7 +194,9 @@ export default {
       main_photo_path: null,
       notFound: false,
       errors: null,
-      tags: null
+      tags: null,
+      photos: null,
+      imagesURL: axios.defaults.imagesURL
     };
   },
   beforeMount() {
@@ -166,9 +204,6 @@ export default {
       .get(`categories/${this.$route.params.id}`)
       .then((response) => {
         this.category = response.data;
-        // генерируем путь до файла
-        this.main_photo_path =
-          axios.defaults.imagesURL + response.data.main_photo_path;
       })
       .catch((error) => {
         if (error.response.status === 404) this.notFound = true;
@@ -178,6 +213,14 @@ export default {
       .get(`categories/${this.$route.params.id}/tags`)
       .then((response) => {
         this.tags = response.data;
+      });
+
+    axios
+      .get(`categories/${this.$route.params.id}/photos`)
+      .then((response) => {
+        this.photos = response.data;
+        // отсоритурем элементы по порядоковому номеру
+        this.photos.sort((a, b) => a.order - b.order);
       });
   },
   methods: {

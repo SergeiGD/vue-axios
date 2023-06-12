@@ -126,8 +126,6 @@
             class="form-control rounded-bottom rounded-0 h-10r flex-grow-1'"
             v-model="category.description"
           ></textarea>
-          <!-- <label class="input-group-text rounded-top rounded-0" for="{{ form.description.id_for_label }}">{{ form.description.label }}</label>
-          {{ form.description }} -->
         </div>
 
       </div>
@@ -142,21 +140,6 @@
           class="form-control rounded-bottom rounded-0"
           v-on:change="fileUploaded"
         />
-
-        <!-- <span class="input-group-text rounded-top rounded-0">Главное фото:</span>
-        <div class="img_wrapper">
-          <img src="{{ offer.main_photo.url }}" alt="Главное фото" class="img-fluid w-100 img">
-
-          <button class="btn btn-primary upload_img upload_img_button" type="button" >
-              <i class="fa-solid fa-arrow-up-from-bracket"></i>
-              Загрузить фотографию
-          </button>
-
-          <button class="btn open_img btn-dark" type="button" data-bs-toggle="modal" data-bs-target="#show_img_modal">
-              <i class="fa-solid fa-up-right-and-down-left-from-center"></i>
-          </button>
-
-          {{ form.main_photo }} -->
 
       </div>
 

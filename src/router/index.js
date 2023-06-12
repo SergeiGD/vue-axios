@@ -19,6 +19,9 @@ import CategoriesDetailView from "../views/CategoriesDetailView.vue";
 import CategoriesUpdateView from "../views/CategoriesUpdateView.vue";
 import CategoriesTagsUpdateView from "../views/CategoriesTagsUpdateView.vue";
 import CategoriesTagsAddView from "../views/CategoriesTagsAddView.vue";
+import CategoriesPhotosUpdateView from "../views/CategoriesPhotosUpdateView.vue";
+import PhotosAddView from "../views/PhotosAddView.vue";
+import PhotosUpdateView from "../views/PhotosUpdateView.vue";
 
 const routes = [
   {
@@ -81,6 +84,24 @@ const routes = [
     path: "/categories/:id/tags/add",
     name: "CategoriesTagsAdd",
     component: CategoriesTagsAddView,
+  },
+  {
+    meta: { requiresAuth: true },
+    path: "/categories/:id/photos",
+    name: "CategoriesPhotosUpdate",
+    component: CategoriesPhotosUpdateView,
+  },
+  {
+    meta: { requiresAuth: true },
+    path: "/categories/:id/photos/add",
+    name: "PhotosAdd",
+    component: PhotosAddView,
+  },
+  {
+    meta: { requiresAuth: true },
+    path: "/categories/:id/photos/:photoId/edit",
+    name: "PhotosUpdate",
+    component: PhotosUpdateView,
   },
   {
     path: "/auth/login",

@@ -67,7 +67,7 @@ export default {
       this.photo = e.target.files[0];
     }
   },
-  mounted() {
+  beforeMount() {
     axios
       .get(`categories/${this.$route.params.id}`)
       .then((response) => (this.category = response.data))

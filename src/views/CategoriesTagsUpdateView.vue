@@ -58,7 +58,6 @@ export default {
   },
   methods: {
     removeTagFromCategory(tag) {
-      console.log(tag.id)
       axios
         .delete(`categories/${this.$route.params.id}/tags`, { data: {tag_id: tag.id} })
         .then(() => {

@@ -1,7 +1,7 @@
 <template>
   <div
     class="modal fade"
-    id="show_img_modal"
+    :id="imagePopupId"
     tabindex="-1"
     aria-labelledby="show_img_label"
     aria-hidden="true"
@@ -34,6 +34,6 @@
 
 <script>
 export default {
-  props: ["image_scr"],
+  props: ["image_scr", "imagePopupId"],
 };
 </script>
