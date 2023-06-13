@@ -1,10 +1,9 @@
 <template>
-
-  <Breadcrumbs 
-    :breadcrumbs="[ 
-      { view: 'Tags', name: 'Tags' }, 
+  <Breadcrumbs
+    :breadcrumbs="[
+      { view: 'Tags', name: 'Tags' },
       { view: 'TagsCreate', name: 'Create' },
-    ]" 
+    ]"
   />
 
   <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-2">
@@ -26,7 +25,7 @@ import Breadcrumbs from "@/components/Breadcrumbs.vue";
 export default {
   components: {
     TagsInputs,
-    Breadcrumbs
+    Breadcrumbs,
   },
   data() {
     return {

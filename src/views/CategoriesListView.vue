@@ -1,6 +1,9 @@
 <template>
-
-  <CategoriesFilter @filterChanged="filterChanged" @filterCleaned="filterCleaned" :filter="filter"/>
+  <CategoriesFilter
+    @filterChanged="filterChanged"
+    @filterCleaned="filterCleaned"
+    :filter="filter"
+  />
 
   <div class="shadow mt-4 rounded-2 overflow-auto">
     <CategoriesTable
@@ -32,7 +35,7 @@ import axios from "axios";
 export default {
   components: {
     CategoriesTable,
-    CategoriesFilter
+    CategoriesFilter,
   },
   data() {
     return {
@@ -46,8 +49,8 @@ export default {
         price_until: null,
         beds_from: null,
         beds_until: null,
-        page: 1
-      }
+        page: 1,
+      },
     };
   },
   beforeMount() {
@@ -66,8 +69,8 @@ export default {
       // обновляем url
       this.$router.push({ name: "Categories", query: query });
     },
-    filterChanged(){
-      const cleanedFilter = {}
+    filterChanged() {
+      const cleanedFilter = {};
       for (var prop in this.filter) {
         if (this.filter[prop]) cleanedFilter[prop] = this.filter[prop];
       }
@@ -80,7 +83,7 @@ export default {
       }
       this.filter.page = 1;
       this.$router.push({ name: "Categories" });
-    }
+    },
   },
   beforeRouteUpdate(to, from, next) {
     // при обновлении страницы (pageChanged) будет вызван этот метод в нем получем новые данные

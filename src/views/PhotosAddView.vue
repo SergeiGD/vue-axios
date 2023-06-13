@@ -1,17 +1,30 @@
 <template>
-
-  <Breadcrumbs 
-    :breadcrumbs="[ 
-      { view: 'Categories', name: 'Categories' }, 
-      { view: 'CategoriesDetail', name: 'Detail', params: { id: $route.params.id } },
-      { view: 'CategoriesPhotosUpdate', name: 'Update photos', params: { id: $route.params.id } },
-      { view: 'PhotosAdd', name: 'Add photo', params: { id: $route.params.id } },
-    ]" 
+  <Breadcrumbs
+    :breadcrumbs="[
+      { view: 'Categories', name: 'Categories' },
+      {
+        view: 'CategoriesDetail',
+        name: 'Detail',
+        params: { id: $route.params.id },
+      },
+      {
+        view: 'CategoriesPhotosUpdate',
+        name: 'Update photos',
+        params: { id: $route.params.id },
+      },
+      {
+        view: 'PhotosAdd',
+        name: 'Add photo',
+        params: { id: $route.params.id },
+      },
+    ]"
   />
 
   <div class="shadow rounded-2 overflow-auto p-3">
-
-    <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-bottom rounded-0 mb-3">
+    <p
+      v-if="errors"
+      class="text-white text-start p-2 h-100 bg-danger rounded-bottom rounded-0 mb-3"
+    >
       {{ errors }}
     </p>
 
@@ -45,9 +58,7 @@
           </button>
         </div>
       </div>
-
     </form>
-
   </div>
 </template>
 
@@ -57,19 +68,19 @@ import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
-    Breadcrumbs
+    Breadcrumbs,
   },
   data() {
     return {
       photo: null,
-      errors: null
+      errors: null,
     };
   },
   methods: {
-    savePhoto(){
+    savePhoto() {
       const photoData = new FormData();
-      photoData.append('photo_file', this.photo) 
-      photoData.append('category_id', this.$route.params.id) 
+      photoData.append("photo_file", this.photo);
+      photoData.append("category_id", this.$route.params.id);
 
       axios({
         method: "post",
@@ -84,7 +95,7 @@ export default {
           console.log(error);
           this.errors =
             error.response.data.detail[0].msg !== undefined
-              ? `${error.response.data.detail[0].loc[1]}: ${ error.response.data.detail[0].msg}`
+              ? `${error.response.data.detail[0].loc[1]}: ${error.response.data.detail[0].msg}`
               : error.response.data.detail;
         });
     },
@@ -92,8 +103,11 @@ export default {
       this.photo = e.target.files[0];
     },
     redirectToPhotosUpdate() {
-      this.$router.push({ name: "CategoriesPhotosUpdate", params: { id: this.$route.params.id } });
-    }
-  }
+      this.$router.push({
+        name: "CategoriesPhotosUpdate",
+        params: { id: this.$route.params.id },
+      });
+    },
+  },
 };
 </script>

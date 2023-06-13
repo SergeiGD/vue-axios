@@ -1,12 +1,20 @@
 <template>
   <NotFound v-if="notFound"></NotFound>
 
-  <Breadcrumbs 
-    :breadcrumbs="[ 
-      { view: 'Categories', name: 'Categories' }, 
-      { view: 'CategoriesDetail', name: 'Detail', params: { id: $route.params.id } },
-      { view: 'CategoriesUpdate', name: 'Update', params: { id: $route.params.id } },
-    ]" 
+  <Breadcrumbs
+    :breadcrumbs="[
+      { view: 'Categories', name: 'Categories' },
+      {
+        view: 'CategoriesDetail',
+        name: 'Detail',
+        params: { id: $route.params.id },
+      },
+      {
+        view: 'CategoriesUpdate',
+        name: 'Update',
+        params: { id: $route.params.id },
+      },
+    ]"
   />
 
   <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-2">
@@ -16,9 +24,9 @@
     class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative"
     @submit.prevent="updateCategory"
   >
-    <CategoriesInputs 
-      :category="category" 
-      :redirectTo="redirectToCategoriesDetail" 
+    <CategoriesInputs
+      :category="category"
+      :redirectTo="redirectToCategoriesDetail"
       @fileUploaded="fileUploaded"
     />
   </form>
@@ -34,7 +42,7 @@ export default {
   components: {
     CategoriesInputs,
     NotFound,
-    Breadcrumbs
+    Breadcrumbs,
   },
   data() {
     return {
@@ -52,7 +60,7 @@ export default {
       for (var prop in this.category) {
         category_data.append(prop, this.category[prop]);
       }
-      if (this.photo !== null) category_data.append('photo', this.photo);
+      if (this.photo !== null) category_data.append("photo", this.photo);
 
       axios({
         method: "PATCH",
@@ -67,16 +75,19 @@ export default {
           console.log(error);
           this.errors =
             error.response.data.detail[0].msg !== undefined
-              ? `${error.response.data.detail[0].loc[1]}: ${ error.response.data.detail[0].msg}`
+              ? `${error.response.data.detail[0].loc[1]}: ${error.response.data.detail[0].msg}`
               : error.response.data.detail;
         });
     },
     redirectToCategoriesDetail() {
-      this.$router.push({ name: "CategoriesDetail", params: { id: this.category.id } });
+      this.$router.push({
+        name: "CategoriesDetail",
+        params: { id: this.category.id },
+      });
     },
     fileUploaded(e) {
       this.photo = e.target.files[0];
-    }
+    },
   },
   beforeMount() {
     axios

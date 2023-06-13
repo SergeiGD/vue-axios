@@ -1,12 +1,12 @@
 <template>
   <NotFound v-if="notFound"></NotFound>
 
-  <Breadcrumbs 
-    :breadcrumbs="[ 
-      { view: 'Tags', name: 'Tags' }, 
+  <Breadcrumbs
+    :breadcrumbs="[
+      { view: 'Tags', name: 'Tags' },
       { view: 'TagsDetail', name: 'Detail', params: { id: $route.params.id } },
       { view: 'TagsUpdate', name: 'Update', params: { id: $route.params.id } },
-    ]" 
+    ]"
   />
 
   <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-2">
@@ -30,7 +30,7 @@ export default {
   components: {
     TagsInputs,
     NotFound,
-    Breadcrumbs
+    Breadcrumbs,
   },
   data() {
     return {

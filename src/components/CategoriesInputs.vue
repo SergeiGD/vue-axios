@@ -1,6 +1,5 @@
 <template>
   <div class="row" v-if="category">
-
     <div class="col-lg-6 col-12">
       <div class="input-group">
         <label for="category-name" class="input-group-text w-10r"
@@ -31,9 +30,7 @@
 
     <div class="col-md-6 col-12 mt-4">
       <div class="input-group flex-nowrap w-auto">
-        <label for="category-price" class="input-group-text w-10r"
-          >Цена</label
-        >
+        <label for="category-price" class="input-group-text w-10r">Цена</label>
         <input
           id="category-price"
           type="number"
@@ -114,10 +111,11 @@
     </div>
 
     <div class="row mt-4">
-      <div class="col-lg-6 col-12 ">
-
+      <div class="col-lg-6 col-12">
         <div class="col-12 d-flex flex-column h-100">
-          <label for="category-description" class="input-group-text rounded-top rounded-0"
+          <label
+            for="category-description"
+            class="input-group-text rounded-top rounded-0"
             >Описание</label
           >
           <textarea
@@ -127,11 +125,11 @@
             v-model="category.description"
           ></textarea>
         </div>
-
       </div>
       <div class="col-lg-6 col-12 mt-lg-0 mt-4">
-
-        <label for="category-main-photo" class="input-group-text rounded-top rounded-0"
+        <label
+          for="category-main-photo"
+          class="input-group-text rounded-top rounded-0"
           >Главное фото</label
         >
         <input
@@ -140,9 +138,7 @@
           class="form-control rounded-bottom rounded-0"
           v-on:change="fileUploaded"
         />
-
       </div>
-
     </div>
 
     <div class="col-12 mt-4">
@@ -150,22 +146,25 @@
         <button type="submit" class="btn btn-lg btn-c_yellow-700">
           Сохранить
         </button>
-        <button type="button" class="btn btn-lg btn-c_grey-100" @click="redirectTo">
+        <button
+          type="button"
+          class="btn btn-lg btn-c_grey-100"
+          @click="redirectTo"
+        >
           Отмена
         </button>
       </div>
     </div>
-
   </div>
 </template>
 
 <script>
-export default({
-  props: ['redirectTo', 'category'],
+export default {
+  props: ["redirectTo", "category"],
   methods: {
     fileUploaded(e) {
-      this.$emit('fileUploaded', e)
-    }
-  }
-})
+      this.$emit("fileUploaded", e);
+    },
+  },
+};
 </script>

@@ -1,17 +1,30 @@
 <template>
-
-  <Breadcrumbs 
-    :breadcrumbs="[ 
-      { view: 'Categories', name: 'Categories' }, 
-      { view: 'CategoriesDetail', name: 'Detail', params: { id: $route.params.id } },
-      { view: 'CategoriesPhotosUpdate', name: 'Update photos', params: { id: $route.params.id } },
-      { view: 'PhotosUpdate', name: 'Edit photo', params: { id: $route.params.id, photoId: $route.params.photoId } },
-    ]" 
+  <Breadcrumbs
+    :breadcrumbs="[
+      { view: 'Categories', name: 'Categories' },
+      {
+        view: 'CategoriesDetail',
+        name: 'Detail',
+        params: { id: $route.params.id },
+      },
+      {
+        view: 'CategoriesPhotosUpdate',
+        name: 'Update photos',
+        params: { id: $route.params.id },
+      },
+      {
+        view: 'PhotosUpdate',
+        name: 'Edit photo',
+        params: { id: $route.params.id, photoId: $route.params.photoId },
+      },
+    ]"
   />
 
   <div class="shadow rounded-2 overflow-auto p-3">
-
-    <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-bottom rounded-0 mb-3">
+    <p
+      v-if="errors"
+      class="text-white text-start p-2 h-100 bg-danger rounded-bottom rounded-0 mb-3"
+    >
       {{ errors }}
     </p>
 
@@ -34,7 +47,7 @@
       <div class="col-6">
         <div class="input-group">
           <label for="photo-order" class="input-group-text w-10r"
-          >Порядковый номер</label
+            >Порядковый номер</label
           >
           <input
             id="photo-order"
@@ -59,9 +72,7 @@
           </button>
         </div>
       </div>
-
     </form>
-
   </div>
 </template>
 
@@ -71,20 +82,21 @@ import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
-    Breadcrumbs
+    Breadcrumbs,
   },
   data() {
     return {
       photo_file: null,
       order: null,
-      errors: null
+      errors: null,
     };
   },
   methods: {
-    savePhoto(){
+    savePhoto() {
       const photoData = new FormData();
-      if (this.photo_file !== null) photoData.append('photo_file', this.photo_file) 
-      photoData.append('order', this.order) 
+      if (this.photo_file !== null)
+        photoData.append("photo_file", this.photo_file);
+      photoData.append("order", this.order);
 
       axios({
         method: "PATCH",
@@ -99,7 +111,7 @@ export default {
           console.log(error);
           this.errors =
             error.response.data.detail[0].msg !== undefined
-              ? `${error.response.data.detail[0].loc[1]}: ${ error.response.data.detail[0].msg}`
+              ? `${error.response.data.detail[0].loc[1]}: ${error.response.data.detail[0].msg}`
               : error.response.data.detail;
         });
     },
@@ -107,17 +119,20 @@ export default {
       this.photo_file = e.target.files[0];
     },
     redirectToPhotosUpdate() {
-      this.$router.push({ name: "CategoriesPhotosUpdate", params: { id: this.$route.params.id } });
-    }
+      this.$router.push({
+        name: "CategoriesPhotosUpdate",
+        params: { id: this.$route.params.id },
+      });
+    },
   },
   beforeMount() {
     axios
       .get(`photos/${this.$route.params.photoId}`)
       .then((response) => {
-        if (response.data.category_id !=  this.$route.params.id){
+        if (response.data.category_id != this.$route.params.id) {
           this.notFound = true;
-        } else{
-          this.order = response.data.order
+        } else {
+          this.order = response.data.order;
         }
       })
       .catch((error) => {

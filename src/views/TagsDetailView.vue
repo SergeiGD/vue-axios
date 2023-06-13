@@ -1,11 +1,11 @@
 <template>
   <NotFound v-if="notFound"></NotFound>
 
-  <Breadcrumbs 
-    :breadcrumbs="[ 
-      { view: 'Tags', name: 'Tags' }, 
+  <Breadcrumbs
+    :breadcrumbs="[
+      { view: 'Tags', name: 'Tags' },
       { view: 'TagsDetail', name: 'Detail', params: { id: $route.params.id } },
-    ]" 
+    ]"
   />
 
   <div
@@ -56,7 +56,7 @@ export default {
   components: {
     DeletePopup,
     NotFound,
-    Breadcrumbs
+    Breadcrumbs,
   },
   data() {
     return {
