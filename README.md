@@ -1,24 +1,15 @@
 # vue-axios
 
-## Project setup
-```
-npm install
-```
+## Описание проекта
+Проект создан в учебных целях для ознакомления с vue js и запросами axios.
 
-### Compiles and hot-reloads for development
+## Инструкция по запуску:
+1. Перейдите в папку с проектом
+2. Выполните команды
 ```
-npm run serve
+docker build -t vue-axios .
+docker run -it -p 8080:8080 vue-axios
 ```
+3. Загрузите и запустите проект [FastApi-Hotel](https://github.com/SergeiGD/FastApi-Hotel) следуя инстркуция файла [README](https://github.com/SergeiGD/FastApi-Hotel/blob/main/README.md)
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+Приложение будет достпуно по адресу http://localhost:8080/. 
