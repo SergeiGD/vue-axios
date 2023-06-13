@@ -1,5 +1,14 @@
 <template>
-  <div class="shadow mt-4 rounded-2 overflow-auto">
+
+  <Breadcrumbs 
+    :breadcrumbs="[ 
+      { view: 'Categories', name: 'Categories' }, 
+      { view: 'CategoriesDetail', name: 'Detail', params: { id: $route.params.id } },
+      { view: 'CategoriesTagsUpdate', name: 'Update tags', params: { id: $route.params.id } },
+    ]" 
+  />
+
+  <div class="shadow rounded-2 overflow-auto">
 
     <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-bottom rounded-0 mb-3">
       {{ errors }}
@@ -38,10 +47,12 @@
 <script>
 import TagsTable from "@/components/TagsTable.vue";
 import axios from "axios";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
     TagsTable,
+    Breadcrumbs
   },
   data() {
     return {

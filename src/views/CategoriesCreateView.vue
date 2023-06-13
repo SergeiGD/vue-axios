@@ -1,4 +1,12 @@
 <template>
+
+  <Breadcrumbs 
+    :breadcrumbs="[ 
+      { view: 'Categories', name: 'Categories' }, 
+      { view: 'CategoriesCreate', name: 'Create' } 
+    ]" 
+  />
+
   <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-2">
     {{ errors }}
   </p>
@@ -17,10 +25,12 @@
 <script>
 import axios from "axios";
 import CategoriesInputs from "@/components/CategoriesInputs.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
     CategoriesInputs,
+    Breadcrumbs
   },
   data() {
     return {

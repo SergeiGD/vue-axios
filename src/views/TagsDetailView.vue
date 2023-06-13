@@ -1,5 +1,13 @@
 <template>
   <NotFound v-if="notFound"></NotFound>
+
+  <Breadcrumbs 
+    :breadcrumbs="[ 
+      { view: 'Tags', name: 'Tags' }, 
+      { view: 'TagsDetail', name: 'Detail', params: { id: $route.params.id } },
+    ]" 
+  />
+
   <div
     class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative"
     v-if="tag"
@@ -42,11 +50,13 @@
 import axios from "axios";
 import DeletePopup from "@/components/DeletePopup.vue";
 import NotFound from "@/components/NotFound.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
     DeletePopup,
     NotFound,
+    Breadcrumbs
   },
   data() {
     return {

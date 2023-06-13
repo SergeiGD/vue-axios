@@ -1,5 +1,15 @@
 <template>
-  <div class="shadow mt-4 rounded-2 overflow-auto p-3">
+
+  <Breadcrumbs 
+    :breadcrumbs="[ 
+      { view: 'Categories', name: 'Categories' }, 
+      { view: 'CategoriesDetail', name: 'Detail', params: { id: $route.params.id } },
+      { view: 'CategoriesPhotosUpdate', name: 'Update photos', params: { id: $route.params.id } },
+      { view: 'PhotosAdd', name: 'Add photo', params: { id: $route.params.id } },
+    ]" 
+  />
+
+  <div class="shadow rounded-2 overflow-auto p-3">
 
     <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-bottom rounded-0 mb-3">
       {{ errors }}
@@ -43,8 +53,12 @@
 
 <script>
 import axios from "axios";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
+  components: {
+    Breadcrumbs
+  },
   data() {
     return {
       photo: null,

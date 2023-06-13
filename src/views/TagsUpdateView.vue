@@ -1,5 +1,14 @@
 <template>
   <NotFound v-if="notFound"></NotFound>
+
+  <Breadcrumbs 
+    :breadcrumbs="[ 
+      { view: 'Tags', name: 'Tags' }, 
+      { view: 'TagsDetail', name: 'Detail', params: { id: $route.params.id } },
+      { view: 'TagsUpdate', name: 'Update', params: { id: $route.params.id } },
+    ]" 
+  />
+
   <p v-if="errors" class="text-white text-start p-2 h-100 bg-danger rounded-2">
     {{ errors }}
   </p>
@@ -15,11 +24,13 @@
 import axios from "axios";
 import TagsInputs from "@/components/TagsInputs.vue";
 import NotFound from "@/components/NotFound.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
     TagsInputs,
     NotFound,
+    Breadcrumbs
   },
   data() {
     return {

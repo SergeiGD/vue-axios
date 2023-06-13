@@ -1,5 +1,13 @@
 <template>
   <NotFound v-if="notFound"></NotFound>
+
+  <Breadcrumbs 
+    :breadcrumbs="[ 
+      { view: 'Categories', name: 'Categories' }, 
+      { view: 'CategoriesDetail', name: 'Detail', params: { id: $route.params.id } } 
+    ]" 
+  />
+
   <div
     class="shadow p-3 rounded-2 d-flex flex-column gap-4 position-relative"
     v-if="category"
@@ -180,13 +188,15 @@ import DeletePopup from "@/components/DeletePopup.vue";
 import NotFound from "@/components/NotFound.vue";
 import ImagePopup from "@/components/ImagePopup.vue";
 import TagsTable from "@/components/TagsTable.vue";
+import Breadcrumbs from "@/components/Breadcrumbs.vue";
 
 export default {
   components: {
     DeletePopup,
     NotFound,
     ImagePopup,
-    TagsTable
+    TagsTable,
+    Breadcrumbs
   },
   data() {
     return {
