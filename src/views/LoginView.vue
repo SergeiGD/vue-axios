@@ -63,7 +63,7 @@ export default {
   methods: {
     async login() {
       this.errors = await this.userStore.logIn(this.user);
-      if (this.errors === null) this.$router.push({ name: "Tags" });
+      if (this.errors === null) this.$router.push({ name: "Home" });
     },
   },
 };

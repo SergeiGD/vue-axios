@@ -1,4 +1,7 @@
 <template>
+
+  <CategoriesFilter @filterChanged="filterChanged" @filterCleaned="filterCleaned" :filter="filter"/>
+
   <div class="shadow mt-4 rounded-2 overflow-auto">
     <CategoriesTable
       :categories="categories"
@@ -23,17 +26,28 @@
 
 <script>
 import CategoriesTable from "@/components/CategoriesTable.vue";
+import CategoriesFilter from "@/components/CategoriesFilter.vue";
 import axios from "axios";
 
 export default {
   components: {
     CategoriesTable,
+    CategoriesFilter
   },
   data() {
     return {
       categories: [],
       pagination: null,
       page: 1,
+      filter: {
+        name: null,
+        id: null,
+        price_from: null,
+        price_until: null,
+        beds_from: null,
+        beds_until: null,
+        page: 1
+      }
     };
   },
   beforeMount() {
@@ -52,6 +66,21 @@ export default {
       // обновляем url
       this.$router.push({ name: "Categories", query: query });
     },
+    filterChanged(){
+      const cleanedFilter = {}
+      for (var prop in this.filter) {
+        if (this.filter[prop]) cleanedFilter[prop] = this.filter[prop];
+      }
+
+      this.$router.push({ name: "Categories", query: cleanedFilter });
+    },
+    filterCleaned() {
+      for (var prop in this.filter) {
+        this.filter[prop] = null;
+      }
+      this.filter.page = 1;
+      this.$router.push({ name: "Categories" });
+    }
   },
   beforeRouteUpdate(to, from, next) {
     // при обновлении страницы (pageChanged) будет вызван этот метод в нем получем новые данные
