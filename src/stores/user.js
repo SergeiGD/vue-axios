@@ -4,7 +4,14 @@ import jwt_decode from "jwt-decode";
 
 export const useUserStore = defineStore("user", {
   state: () => {
-    return { user_id: null };
+    if (localStorage.getItem("access_token") !== null) {
+      // если в localStorage есть токен, то получаем данные из него
+      return {
+        user_id: jwt_decode(localStorage.getItem("access_token")).id,
+      }
+    }
+    // иначе просто вернем null
+    return { user_id: null }
   },
   actions: {
     async logIn(user) {
@@ -33,21 +40,9 @@ export const useUserStore = defineStore("user", {
       localStorage.removeItem("access_token");
       localStorage.removeItem("refresh_token");
     },
-
-    tryUpdateUser() {
-      // обновления user_id, если страница была перезагружена, но токен есть
-      if (
-        this.user_id === null &&
-        localStorage.getItem("access_token") !== null
-      ) {
-        this.user_id = jwt_decode(localStorage.getItem("access_token")).id;
-      }
-    },
   },
   getters: {
     isAuthenticated: (state) => {
-      // обновляем состояние
-      state.tryUpdateUser();
       // если установлен user_id, то вернет true
       return !!state.user_id;
     },
